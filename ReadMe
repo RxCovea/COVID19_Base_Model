@@ -1,0 +1,6 @@
+Add all files in a common directory.
+To make changes to transimission probabilities and states , make all changes in function Main.py
+
+To run:
+cd <Directory>
+python Main.py
