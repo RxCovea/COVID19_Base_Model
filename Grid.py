@@ -1,8 +1,11 @@
+import matplotlib
 import matplotlib.pyplot as plt
 from matplotlib import colors
 import numpy as np
 import random
 import copy
+
+matplotlib.use('agg')
 
 #The class Agent refers to an individual. 
 #Every object of this class corresponds to a cell on the 2D cellular Automata.
