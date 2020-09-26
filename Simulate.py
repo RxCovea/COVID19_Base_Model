@@ -3,9 +3,10 @@ from matplotlib import colors
 import numpy as np
 import random
 import copy
-import Grid
-import Policy
 import time
+
+from models.base import Grid
+from models.base import Policy
 
 #This class caters to just simulation. It required a Policy object and Grid object as input
 class Simulate():

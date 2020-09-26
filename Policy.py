@@ -3,7 +3,8 @@ from matplotlib import colors
 import numpy as np
 import random
 import copy
-import Grid
+
+from models.base import Grid
 
 class Policy():
 	def __init__(self,grid,individual_types, parameter):

@@ -3,9 +3,10 @@ from matplotlib import colors
 import numpy as np
 import random
 import copy
-import Grid
-import Simulate
 import time
+
+from models.base import Grid
+from models.base import Simulate
 
 def normal_spread():
 
@@ -70,34 +71,35 @@ def normal_spread():
 	sim_obj.grid.animate(False,color_list,0.3)  #animate n_days of disease spread
 	sim_obj.grid.plot_time_series()   			#plot time series of individual_types(Infected, recovered...)
 
+
+def p_infection(day,global_state,my_agent,neighbour_agents):  # probability of infectiong neighbour
+
+	p_inf=0.4
+	p_not_inf=1
+	for nbr_agent in neighbour_agents:
+		if nbr_agent.individual_type in ['Infected','Asymptomatic'] and not nbr_agent.policy_state['quarantined']:
+			p_not_inf*=(1-p_inf)
+
+	return 1 - p_not_inf
+
+def p_infection_flu(day,global_state,my_agent,neighbour_agents):  # probability of infectiong neighbour
+
+	p_inf=0.2
+	p_not_inf=1
+	for nbr_agent in neighbour_agents:
+		if nbr_agent.individual_type in ['Flu'] and not nbr_agent.policy_state['quarantined']:
+			p_not_inf*=(1-p_inf)
+
+	return 1 - p_not_inf
+
+
+def p_standard(p):
+	def p_fn(day,global_state,a1,nbrs):
+		return p
+	return p_fn
+
+
 def co_pandemic_spread():
-
-	def p_infection(day,global_state,my_agent,neighbour_agents):  # probability of infectiong neighbour
-
-		p_inf=0.4
-		p_not_inf=1
-		for nbr_agent in neighbour_agents:
-			if nbr_agent.individual_type in ['Infected','Asymptomatic'] and not nbr_agent.policy_state['quarantined']:
-				p_not_inf*=(1-p_inf)
-
-		return 1 - p_not_inf
-
-	def p_infection_flu(day,global_state,my_agent,neighbour_agents):  # probability of infectiong neighbour
-
-		p_inf=0.2
-		p_not_inf=1
-		for nbr_agent in neighbour_agents:
-			if nbr_agent.individual_type in ['Flu'] and not nbr_agent.policy_state['quarantined']:
-				p_not_inf*=(1-p_inf)
-
-		return 1 - p_not_inf
-
-
-	def p_standard(p):
-		def p_fn(day,global_state,a1,nbrs):
-			return p
-		return p_fn
-
 
 	individual_types=['Susceptible','Infected','Recovered','Flu','Flu Recovered','grey']
 	color_list=['white', 'black','red','blue','yellow','grey']
@@ -144,4 +146,4 @@ def co_pandemic_spread():
 	sim_obj.grid.plot_time_series()
 
 #normal_spread()
-co_pandemic_spread()
+#co_pandemic_spread()
